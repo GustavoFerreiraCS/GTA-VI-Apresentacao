@@ -16,22 +16,29 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 10000;
+    z-index: 1000;
+    transition: transform 0.5s ease;
 }
 
 .menu-conteudo {
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 8px 32px;
+    margin: 15px 70px;
+    padding: 15px 25px;
+    position: fixed;
 }
 
 .menu-logo {
     font-family: 'Oswald', sans-serif;
-    font-size: 32px;
+    font-size: 45px;
+    padding-bottom: 10px;
     font-weight: 800;
     text-decoration: none;
     color: #ffffff;
     text-shadow: 0 0 10px rgba(225, 61, 139, 0.4);
+}
+
+.menu-rolado {
+    transform: translateY(-100%);
 }
 
 .video-capa {
@@ -201,6 +208,17 @@ body {
     padding: 0 32px;
 }
 
+.aparecer {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1s ease-out;
+}
+
+.aparecer.visivel {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 .secao-video {
     padding: 100px 0;
 }
@@ -208,7 +226,7 @@ body {
 .card-video {
     position: relative;
     width: 100%;
-    min-height: 650px;
+    min-height: 850px;
     aspect-ratio: 1200 / 340;
     border-radius: 24px;
     overflow: hidden;

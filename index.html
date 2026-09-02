@@ -8,13 +8,14 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Questrial&family=Roboto+Slab:wght@700;900&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Questrial&family=Roboto+Slab:wght@700;900&display=swap"
         rel="stylesheet">
 
 </head>
 
 <body>
-    <nav class="menu" id="menu">
+    <nav class="menu-rolando" id="menu">
         <div class="menu-conteudo">
             <a href="#" class="menu-logo">VI</a>
         </div>
@@ -46,7 +47,7 @@
         </div>
     </header>
     <section class="secao-historia">
-        <div class="conteudo-central-aparecer">
+        <div class="conteudo-central aparecer">
             <p class="rotulo">Historia</p>
             <h2 class="historia-titulo">VICE CITY, EUA.</h2>
             <div class="historia-texto">
@@ -58,21 +59,23 @@
         </div>
     </section>
     <section class="secao-video">
-        <div class="conteudo-central-aparecer">
+        <div class="conteudo-central aparecer">
             <article class="card-video">
                 <div class="card-video-conteudo">
                     <p class="rotulo rotulo-card-video">Vídeos</p>
                     <h2 class="card-videos-titulo">Um olhar extendido</h2>
-                    <p class="card-video-descricao">A maior e mais imersiva evolução da série de Grand Theft Auto mostrado em gameplay, até o
+                    <p class="card-video-descricao">A maior e mais imersiva evolução da série de Grand Theft Auto
+                        mostrado em gameplay, até o
                         momento.</p>
-                    <a href="https://youtu.be/tJbzMqJGH4k?si=Xaf3zlJnOy_uNM5V" class="botao botao-primario card-video-botao">
+                    <a href="https://youtu.be/tJbzMqJGH4k?si=Xaf3zlJnOy_uNM5V"
+                        class="botao botao-primario card-video-botao">
                         <img src="assets/icone-play.png" alt="" class="icone-play" width="18" height="18">Ver agora
                     </a>
                 </div>
             </article>
         </div>
     </section>
-    <section id="estreia" class="estreia" aria-labelledby="estreia-heading">
+    <section id="estreia" class="estreia aparecer" aria-labelledby="estreia-heading">
         <div class="estreia__inner">
             <header class="estreia__intro">
                 <h2 id="estreia-heading" class="estreia__headline">
@@ -125,94 +128,46 @@
     </section>
 
     <footer class="rodape">
-                <div class="conteudo-central rodape-conteudo">
-                    <div class="rodape-logo">GTA VI</div>
+        <div class="conteudo-central rodape-conteudo">
+            <div class="rodape-logo">GTA VI</div>
 
-                    <nav class="rodape-links">
-                        <a href="#">Corporativo</a>
-                        <a href="#">Privacidade</a>
-                        <a href="#">Configurações de cookie</a>
-                        <a href="#">Política de cookies</a>
-                        <a href="#">Jurídico</a>
-                        <a href="#">Não vender nem compartilhar as minhas informações pessoais</a>
-                    </nav>
+            <nav class="rodape-links">
+                <a href="#">Corporativo</a>
+                <a href="#">Privacidade</a>
+                <a href="#">Configurações de cookie</a>
+                <a href="#">Política de cookies</a>
+                <a href="#">Jurídico</a>
+                <a href="#">Não vender nem compartilhar as minhas informações pessoais</a>
+            </nav>
 
-                    <div class="rodape-redes">
-                        <a href="#" aria-label="YouTube" class="rede-social">YT</a>
+            <div class="rodape-redes">
+                <a href="#" aria-label="YouTube" class="rede-social">YT</a>
 
-                        <a href="#" aria-label="Instagram" class="rede-social">IG</a>
+                <a href="#" aria-label="Instagram" class="rede-social">IG</a>
 
-                        <a href="#" aria-label="X / Twitter" class="rede-social">X</a>
-                    </div>
+                <a href="#" aria-label="X / Twitter" class="rede-social">X</a>
+            </div>
 
-                    <p class="rodape-classificacao">
-                        Pode incluir conteúdo inapropriado para crianças. Acesse <a href="https://www.gov.br"
-                            target="_blank" rel="noopener noreferrer">https://www.gov.br</a> para ver informações da
-                        classificação indicativa.
-                    </p>
+            <p class="rodape-classificacao">
+                Pode incluir conteúdo inapropriado para crianças. Acesse <a href="https://www.gov.br" target="_blank"
+                    rel="noopener noreferrer">https://www.gov.br</a> para ver informações da
+                classificação indicativa.
+            </p>
 
-                    <p class="rodape-direitos">
-                        &copy; 2026 Rockstar Games, Inc. Todos os direitos reservados. Grand Theft Auto, GTA VI,
-                        Rockstar Games
-                        e o logotipo da Rockstar Games são marcas registradas da Take-Two Interactive Software.
-                    </p>
-                </div>
-            </footer>
+            <p class="rodape-direitos">
+                &copy; 2026 Rockstar Games, Inc. Todos os direitos reservados. Grand Theft Auto, GTA VI,
+                Rockstar Games
+                e o logotipo da Rockstar Games são marcas registradas da Take-Two Interactive Software.
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
     <script src="js/estreia.js"></script>
-    <script>
-        (function () {
-            if (window.__estreiaCountdownStarted) return;
-            window.__estreiaCountdownStarted = true;
-
-            var card = document.querySelector(".estreia__countdown-card[data-target-date]");
-            if (!card) return;
-
-            var raw = card.getAttribute("data-target-date").split(/[-T:]/);
-            var target = new Date(
-                Number(raw[0]),
-                Number(raw[1]) - 1,
-                Number(raw[2]),
-                Number(raw[3] || 0),
-                Number(raw[4] || 0),
-                Number(raw[5] || 0)
-            ).getTime();
-
-            var daysEl = card.querySelector('[data-time="days"]');
-            var hoursEl = card.querySelector('[data-time="hours"]');
-            var minutesEl = card.querySelector('[data-time="minutes"]');
-            var secondsEl = card.querySelector('[data-time="seconds"]');
-            var live = document.getElementById("estreia-countdown-live");
-
-            function pad(value, digits) {
-                return String(Math.max(0, value)).padStart(digits, "0");
-            }
-
-            function tick() {
-                var ms = target - Date.now();
-                if (ms < 0) ms = 0;
-
-                var days = Math.floor(ms / 86400000);
-                var hours = Math.floor(ms / 3600000) % 24;
-                var minutes = Math.floor(ms / 60000) % 60;
-                var seconds = Math.floor(ms / 1000) % 60;
-
-                daysEl.textContent = pad(days, 3);
-                hoursEl.textContent = pad(hours, 2);
-                minutesEl.textContent = pad(minutes, 2);
-                secondsEl.textContent = pad(seconds, 2);
-
-                if (live) {
-                    live.textContent = ms === 0
-                        ? "Lançamento disponível"
-                        : pad(days, 3) + " dias, " + pad(hours, 2) + " horas, " + pad(minutes, 2) + " minutos e " + pad(seconds, 2) + " segundos";
-                }
-            }
-
-            tick();
-            setInterval(tick, 1000);
-        })();
-    </script>
+    <script src="js/script.js"></script>
 </body>
 
 </html>
