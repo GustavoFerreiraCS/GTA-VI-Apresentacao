@@ -2,10 +2,8 @@ const menu = document.getElementById("menu");
 const blocos = document.querySelectorAll(".aparecer");
 const video = document.querySelector(".video-capa");
 const capa = document.querySelector(".capa");
-const capaPainel = document.querySelector(".capa-painel");
 const capaConteudo = document.querySelector(".capa-conteudo");
 const capaBarra = document.querySelector(".capa-barra");
-const capaSeta = document.querySelector(".capa-seta");
 
 if (menu) {
     window.addEventListener("scroll", function () {
@@ -31,11 +29,10 @@ if (blocos.length) {
     });
 }
 
-if (window.gsap && window.ScrollTrigger && video && capa && capaPainel && capaConteudo) {
+if (window.gsap && window.ScrollTrigger && video && capa) {
     gsap.registerPlugin(ScrollTrigger);
 
-    const DISTANCIA_PIN = 2500;
-    // margem pra parar no último frame sem disparar o "ended" (que rebobina em alguns navegadores)
+    const DISTANCIA_PIN = 2200;
     const MARGEM_FINAL = 0.05;
 
     video.muted = true;
@@ -45,14 +42,37 @@ if (window.gsap && window.ScrollTrigger && video && capa && capaPainel && capaCo
     video.removeAttribute("loop");
     video.loop = false;
     video.pause();
+    video.currentTime = 0;
+    video.style.opacity = "1";
 
+    const estado = { tempo: 0 };
     let duracao = 0;
     let liberado = false;
 
-    // trava de segurança: se algo mandar o vídeo tocar, ele volta a ficar parado
+    const ativarFallback = function () {
+        capa.style.background = "linear-gradient(180deg, rgba(13, 13, 26, 0.15), rgba(13, 13, 26, 0.7)), url('assets/gta-box-art.jpeg') center / cover no-repeat, #0d0d1a";
+        video.style.display = "none";
+    };
+
+    video.addEventListener("error", ativarFallback);
+    video.addEventListener("loadeddata", function () {
+        video.style.opacity = "1";
+    });
+
+    const aplicarTempo = function () {
+        if (!duracao || video.readyState < 1) {
+            return;
+        }
+
+        if (Math.abs(video.currentTime - estado.tempo) > 0.02) {
+            video.currentTime = estado.tempo;
+        }
+    };
+
     video.addEventListener("play", function () {
         if (!liberado) {
             video.pause();
+            aplicarTempo();
         }
     });
 
@@ -69,16 +89,13 @@ if (window.gsap && window.ScrollTrigger && video && capa && capaPainel && capaCo
         video.addEventListener("loadedmetadata", guardarDuracao, { once: true });
     }
 
-    // alguns navegadores só liberam o seek depois de um play; damos play e pausamos na hora
     const prepararVideo = function () {
         liberado = true;
-
         const playPromise = video.play();
 
         const parar = function () {
             liberado = false;
             video.pause();
-            // volta pro frame que o scroll está pedindo agora
             aplicarTempo();
         };
 
@@ -94,18 +111,7 @@ if (window.gsap && window.ScrollTrigger && video && capa && capaPainel && capaCo
     window.addEventListener("pointerdown", prepararVideo, { once: true });
     window.addEventListener("touchstart", prepararVideo, { once: true });
 
-    // objeto intermediário: o GSAP anima esse tempo com o scrub e a gente repassa pro vídeo
-    const estado = { tempo: 0 };
-
-    const aplicarTempo = function () {
-        if (!duracao || video.readyState < 1) {
-            return;
-        }
-
-        if (Math.abs(video.currentTime - estado.tempo) > 0.01) {
-            video.currentTime = estado.tempo;
-        }
-    };
+    const elementosCapa = [capaConteudo, capaBarra].filter(Boolean);
 
     gsap.timeline({
         scrollTrigger: {
@@ -115,17 +121,29 @@ if (window.gsap && window.ScrollTrigger && video && capa && capaPainel && capaCo
             scrub: 1,
             pin: true,
             invalidateOnRefresh: true,
+            onUpdate: function () {
+                if (!duracao || video.readyState < 1) {
+                    return;
+                }
+                if (video.currentTime !== estado.tempo) {
+                    aplicarTempo();
+                }
+            }
         }
     })
-        .to(video, { opacity: 1, duration: 0.15, ease: "none" }, 0)
-        .to(".capa-conteudo, .capa-barra, .capa-seta", {
-            opacity: 0,
-            y: -40,
-            scale: 0.6,
-            duration: 0.1,
-            ease: "none",
-        }, 0.02)
-        // duração 1 = o vídeo ocupa o pin inteiro e termina exatamente quando o scroll é liberado
+        .set(video, { autoAlpha: 1, display: "block", opacity: 1 })
+        .to(elementosCapa, {
+            autoAlpha: 0,
+            y: -24,
+            scale: 0.96,
+            duration: 0.3,
+            ease: "power2.out"
+        }, 0)
+        .to(video, {
+            scale: 1.08,
+            duration: 1,
+            ease: "none"
+        }, 0)
         .fromTo(estado, { tempo: 0 }, {
             tempo: function () {
                 return Math.max(duracao - MARGEM_FINAL, 0);
